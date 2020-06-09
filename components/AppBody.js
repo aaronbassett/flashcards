@@ -1,9 +1,11 @@
+import { CardIcon, ListIcon } from './Icons'
+
 import { Button } from '@ui-kitten/components'
+import { CardCreateView } from '../views/CardCreateView'
 import { CardListView } from '../views/CardListView'
 import { DeckDetailView } from '../views/DeckDetailView'
 import { DeckListView } from '../views/DeckListView'
 import { DecksProvider } from '../providers/DecksProvider'
-import { ListIcon } from './Icons'
 import { LogInView } from '../views/LogInView'
 import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
@@ -62,9 +64,31 @@ export function AppBody() {
                         headerRight: () => (
                           <Button
                             appearance='ghost'
-                            accessoryLeft={ListIcon}
+                            accessoryLeft={CardIcon}
                             onPress={() => {
                               navigation.navigate('DeckDetail', {
+                                selectedDeck: route.params.selectedDeck
+                              })
+                            }}
+                          />
+                        )
+                      }
+                    )
+                  }
+                />
+                <Stack.Screen
+                  name="CardCreate"
+                  component={CardCreateView}
+                  options={
+                    ({ route, navigation }) => (
+                      {
+                        title: 'Card Create',
+                        headerRight: () => (
+                          <Button
+                            appearance='ghost'
+                            accessoryLeft={ListIcon}
+                            onPress={() => {
+                              navigation.navigate('CardList', {
                                 selectedDeck: route.params.selectedDeck
                               })
                             }}

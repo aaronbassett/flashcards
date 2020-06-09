@@ -1,4 +1,4 @@
-import { Card, Deck, Priorities } from '../schemas/Deck'
+import { Card, Deck } from '../schemas/Deck'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 
 import Realm from 'realm'
@@ -22,7 +22,7 @@ const DecksProvider = ({ children, projectId }) => {
 
     useEffect(() => {
         if (user == null) {
-            console.warn('TasksView must be authenticated!')
+            console.warn('DecksView must be authenticated!')
             return
         }
 
@@ -42,7 +42,6 @@ const DecksProvider = ({ children, projectId }) => {
                     setDecks([...syncDecks])
                 })
 
-                // Set the tasks state variable and re-render.
                 setDecks([...syncDecks])
             })
             .catch(error => console.warn('Failed to open realm:', error))
@@ -69,30 +68,23 @@ const DecksProvider = ({ children, projectId }) => {
                 'Deck',
                 new Deck({ title: title, description: description, partition: projectId }),
             )
+        })
+    }
+
+    const createCard = async (deck, title, description, code, language, priority) => {
+
+        const realm = realmRef.current
+
+        realm.write(() => {
             let newCard = new Card({
-                title: "Sample Card",
-                description: "This is an automatically created card",
-                code: "useEffect(() => console.log('stuff'))"
+                title: title,
+                description: description,
+                code: code,
+                priority: priority,
+                language: language
             })
 
-            let newCard2 = new Card({
-                title: "Another Sample Card",
-                description: "This is an automatically created card",
-                code: "const [user, setUser] = useState(null)",
-                priority: Priorities.TWO
-            })
-
-            let newCard3 = new Card({
-                title: "And a 3rd Card",
-                description: "With a different description",
-                code: "from mongodb import mongo",
-                priority: Priorities.THREE,
-                language: 'python'
-            })
-
-            newDeck.cards.push(newCard)
-            newDeck.cards.push(newCard2)
-            newDeck.cards.push(newCard3)
+            deck.cards.push(newCard)
         })
     }
 
@@ -115,6 +107,7 @@ const DecksProvider = ({ children, projectId }) => {
         <DecksContext.Provider
             value={{
                 createDeck,
+                createCard,
                 deleteDeck,
                 deleteCard,
                 decks,

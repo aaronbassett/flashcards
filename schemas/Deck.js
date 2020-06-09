@@ -7,27 +7,22 @@ const LANGUAGES = [
 class Priorities {
     static FIVE = {
         statusName: 'primary',
-        exerciseTerm: 'Fade Out',
         level: 5
     }
     static FOUR = {
         statusName: 'success',
-        exerciseTerm: 'Double Take',
         level: 4
     }
     static THREE = {
         statusName: 'warning',
-        exerciseTerm: 'Round House',
         level: 3
     }
     static TWO = {
         statusName: 'danger',
-        exerciseTerm: 'Fast Pace',
         level: 2
     }
     static ONE = {
         statusName: 'basic',
-        exerciseTerm: 'Cocked Pistol',
         level: 1
     }
 }
@@ -79,4 +74,4 @@ class Deck {
     };
 }
 
-export { Deck, Card, Priorities }
+export { Deck, Card, Priorities, LANGUAGES }

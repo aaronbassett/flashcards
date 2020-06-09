@@ -17,8 +17,8 @@ export const ListIcon = (props) => (
     <Icon {...props} name='list' />
 )
 
-export const BrowserIcon = (props) => (
-    <Icon {...props} name='browser' />
+export const CardIcon = (props) => (
+    <Icon {...props} name='credit-card-outline' />
 )
 
 export const TrashIcon = (props) => (
